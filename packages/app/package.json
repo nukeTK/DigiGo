@@ -15,6 +15,7 @@
     "@burner-wallet/assets": "^1.2.0",
     "@burner-wallet/burner-connect-provider": "^0.1.1",
     "@burner-wallet/core": "^1.2.3",
+    "@chakra-ui/icons": "^2.0.13",
     "@chakra-ui/pro-theme": "^0.0.57",
     "@chakra-ui/react": "^2.3.6",
     "@emotion/react": "^11",

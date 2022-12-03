@@ -13,7 +13,7 @@ import {
   MenuList,
   Text,
 } from "@chakra-ui/react";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+
 import { FaGithub } from "react-icons/fa";
 import { MdArticle } from "react-icons/md";
 import { AiOutlineMenu } from "react-icons/ai";
@@ -46,7 +46,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               <Link href="/">{configJsonFile.name}</Link>
             </Text>
             <HStack spacing="3">
-              <ConnectButton accountStatus={"address"} showBalance={false} chainStatus={"icon"} />
+             
               <Menu>
                 <MenuButton
                   rounded={configJsonFile.style.radius}
