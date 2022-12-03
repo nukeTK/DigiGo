@@ -2,6 +2,8 @@
 
 This dir is for PoC of integrating Biconomy SDK, Safe with Account Abstraction, contains smart-contract, bundler, and sample frontend.
 
+This implementation may get complicated, so I set up a different dev environment from the app.
+
 ## Motivation
 
 ### Safe
@@ -29,4 +31,4 @@ In this dir, we are trying to know how to use Biconocmy SDK with Account Abstrac
 
 ## How it works
 
-![how-it-works](./docs/how-it-works.png)
+![how-it-works](../docs/account-abstraction-contracts.png)
