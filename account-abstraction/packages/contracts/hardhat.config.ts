@@ -24,6 +24,9 @@ const config: HardhatUserConfig = {
     },
   },
   networks: {
+    hardhat: {
+      chainId: 80001,
+    },
     ...networksUserConfigs,
   },
   etherscan: {

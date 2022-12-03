@@ -1,5 +1,5 @@
+import { Image, Stack, Text } from "@chakra-ui/react";
 import { NextPage } from "next";
-import { Text, Image, Stack } from "@chakra-ui/react";
 
 import { Layout } from "@/components/Layout";
 import { Unit } from "@/components/Unit";

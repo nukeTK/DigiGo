@@ -5,8 +5,8 @@ import { ethers } from "hardhat";
 import path from "path";
 
 import { PAYMASTER_STAKE, UNSTAKE_DELAY_SEC } from "../config";
+import { DeterministicDeployer } from "../lib/infinitism/DeterministicDeployer";
 import { EIP4337Manager__factory } from "../typechain-types";
-import { DeterministicDeployer } from "./helper/infinitism/DeterministicDeployer";
 
 async function main() {
   const [signer] = await ethers.getSigners();
@@ -26,11 +26,11 @@ async function main() {
     ["address"],
     [entryPointAddress]
   );
-  const accountAbstractionModuleCreationnCode = ethers.utils.solidityPack(
+  const accountAbstractionModuleCreationCode = ethers.utils.solidityPack(
     ["bytes", "bytes"],
     [EIP4337Manager__factory.bytecode, accountAbstractionModuleCreationArgument]
   );
-  const accountAbstractionModuleAddress = await DeterministicDeployer.deploy(accountAbstractionModuleCreationnCode);
+  const accountAbstractionModuleAddress = await DeterministicDeployer.deploy(accountAbstractionModuleCreationCode);
 
   const result = {
     entryPoint: entryPointAddress,
