@@ -1,0 +1,24 @@
+{
+  "1337": {
+    "index": 1,
+    "key": "localhost",
+    "env": "localhost",
+    "name": "Localhost",
+    "currency": "ETH",
+    "icon": "localhost.png",
+    "rpc": "http://localhost:8545",
+    "explorer": { "name": "Localchain Exproler", "url": "http://localhost:3000" },
+    "deployments": {}
+  },
+  "80001": {
+    "index": 0,
+    "key": "polygon-mumbai",
+    "env": "testnet",
+    "name": "Polygon Mumbai",
+    "currency": "MATIC",
+    "icon": "polygon.png",
+    "rpc": "https://cosmological-wild-shadow.matic-testnet.discover.quiknode.pro/841ca310d3e929c353000fc44f52ddd23232ac62/",
+    "explorer": { "name": "Polygonscan", "url": "https://mumbai.polygonscan.com" },
+    "deployments": {}
+  }
+}

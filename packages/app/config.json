@@ -1,0 +1,47 @@
+{
+  "name": "DigiGo",
+  "description": "Crypto payment and royalty point service with Account Abstraction",
+  "url": {
+    "app": "https://digi-go.vercel.app",
+    "docs": "https://github.com/captainahab0x/DigiGo",
+    "github": "https://github.com/captainahab0x/DigiGo",
+    "hackathon": "https://ethindia.co/"
+  },
+  "style": {
+    "color": {
+      "black": {
+        "bg": "#000000",
+        "text": {
+          "primary": "gray.800",
+          "secondary": "gray.700",
+          "tertiary": "gray.500"
+        }
+      },
+      "white": {
+        "bg": "#FFFFFF",
+        "text": {
+          "primary": "gray.100",
+          "secondary": "gray.200",
+          "tertiary": "gray.400"
+        }
+      },
+      "accent": "#FDD565",
+      "link": "#4879B7",
+      "brand": {
+        "50": "#FFF8E6",
+        "100": "#FEECB9",
+        "200": "#FDDF8B",
+        "300": "#FDD35E",
+        "400": "#FCC731",
+        "500": "#FCBA03",
+        "600": "#C99503",
+        "700": "#977002",
+        "800": "#654B01",
+        "900": "#322501"
+      }
+    },
+    "size": "md",
+    "radius": "lg",
+    "shadow": "base"
+  }
+}
