@@ -8,7 +8,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { QRCodeScannerModal } from "@/components/QRCodeScannerModal";
 import configJsonFile from "../../config.json";
 import { useEffect, useState } from "react";
-type PaymentPageMode = "scan" | "review" | "confirm" | "walletConnected";
+type PaymentPageMode = "scan" | "review" | "confirm" | "walletConnected" ;
 import {
   WagmiConfig,
   createClient,
@@ -24,10 +24,13 @@ const HomePage: NextPage = () => {
     console.log(isConnected,activeConnector)
     const scanModalDisclosure = useDisclosure();
     const [scanedText, setScanedText] = useState("");
-
+    
     const openScanModal = () => {
       scanModalDisclosure.onOpen();
     };
+    const confirmPay = () => {
+      setMode("confirm")
+    }
 
     useEffect(() => {
       if (!scanedText) {
@@ -35,6 +38,7 @@ const HomePage: NextPage = () => {
       }
       console.log("scanned", scanedText);
       setMode("review");
+      
     }, [scanedText]);
   return (
     
@@ -71,9 +75,12 @@ const HomePage: NextPage = () => {
 
 {mode === "scan" && isConnected && <Box  className="stickyPayBtn"><Icon onClick={openScanModal}as={MdGroupWork} w={20} h={20} color='accent' /></Box>}
         {mode === "review" && (
+          <>
           <Text fontSize="sm" color={configJsonFile.style.color.black.text.secondary}>
             Payment review goes here. And technical integration goes here too.
           </Text>
+          <Button mt={25} onClick={confirmPay}>Confirm PAY</Button>
+          </>
         )}
 
          <QRCodeScannerModal
@@ -81,6 +88,9 @@ const HomePage: NextPage = () => {
         onScan={setScanedText}
         onClose={scanModalDisclosure.onClose}
       />
+      {mode === "confirm" && (<Heading>Thank you payment. You Recived 2$ as reward</Heading>)}
+
+      
     </Layout>
     </Box>
  
