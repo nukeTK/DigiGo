@@ -69,7 +69,7 @@ const HomePage: NextPage = () => {
   <ConnectButton accountStatus={"address"} showBalance={false} chainStatus={"icon"}  />
   </Box>
 
-{mode === "scan" && isConnected && <Box  className="stickyPayBtn"><Icon onClick={openScanModal} as={MdGroupWork} w={20} h={20} color='accent' /></Box>}
+{mode === "scan" && isConnected && <Box  className="stickyPayBtn"><Icon onClick={openScanModal}as={MdGroupWork} w={20} h={20} color='accent' /></Box>}
         {mode === "review" && (
           <Text fontSize="sm" color={configJsonFile.style.color.black.text.secondary}>
             Payment review goes here. And technical integration goes here too.

@@ -107,4 +107,5 @@ dist
 .DS_Store
 
 # Local
+mnemonic.txt
 .temp

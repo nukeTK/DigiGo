@@ -4,6 +4,10 @@ This dir is for PoC of integrating Biconomy SDK, Safe with Account Abstraction, 
 
 This implementation may get complicated, so I set up a different dev environment from the app.
 
+## How it works
+
+![how-it-works](../docs/account-abstraction-contracts.png)
+
 ## Motivation
 
 ### Safe
@@ -29,6 +33,16 @@ So we decided to use Biconomy SDK to improve development efficiency for our team
 
 In this dir, we are trying to know how to use Biconocmy SDK with Account Abstraction on Safe.
 
-## How it works
+## Development Note
 
-![how-it-works](../docs/account-abstraction-contracts.png)
+### Safe
+
+TBD
+
+### Biconomy SDK
+
+https://biconomy.gitbook.io/sdk/guides/user-onboarding-and-smart-account-deployments
+
+### Integration
+
+TBD
