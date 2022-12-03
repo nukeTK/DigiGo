@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable camelcase */
 import { Button, Stack, Text } from "@chakra-ui/react";
 import Safe, { SafeFactory } from "@safe-global/safe-core-sdk";
@@ -10,11 +9,11 @@ import { useAccount, useSigner } from "wagmi";
 
 import { Layout } from "@/components/Layout";
 import { Unit } from "@/components/Unit";
+import { useDigiGoWallet } from "@/hooks/useDigiGoWallet";
 import { useErrorToast } from "@/hooks/useErrorToast";
 
 import deploymentsJsonFile from "../../../../../account-abstraction/packages/contracts/deployments.json";
-import { DeterministicDeployer } from "../../../../../account-abstraction/packages/contracts/lib/infinitism/DeterministicDeployer";
-import { SafeProxy4337__factory } from "../../../../../account-abstraction/packages/contracts/typechain-types";
+import { MockPayment__factory } from "../../../../../account-abstraction/packages/contracts/typechain-types";
 import configJsonFile from "../../../config.json";
 
 const AccountAbstractionPage: NextPage = () => {
@@ -22,68 +21,30 @@ const AccountAbstractionPage: NextPage = () => {
   const { data: signer } = useSigner();
   const { handle } = useErrorToast();
 
+  const { digiGoWallet } = useDigiGoWallet();
+
   const [isLoading, setIsLoading] = useState(false);
 
   const deploySafe = async () => {
-    if (!address || !signer || !signer.provider) {
+    if (!address || !signer || !signer.provider || !digiGoWallet) {
       return;
     }
     try {
+      const mockPayment = MockPayment__factory.connect(deploymentsJsonFile.mockPayment, signer);
+      console.log(digiGoWallet.address);
+
+      // await signer.sendTransaction({ to: digiGoWallet.address, value: ethers.utils.parseEther("0.5") });
+      const data = mockPayment.interface.encodeFunctionData("pay");
+      const op = await digiGoWallet.userOpHandler.createSignedUserOp({
+        target: mockPayment.address,
+        data,
+        value: 100,
+        gasLimit: 6100000,
+      });
+      const tx = await digiGoWallet.bundlerClient.sendUserOpToBundler(op);
+      console.log(tx);
       setIsLoading(true);
-
-      const safeProxy4337CreationArgument = ethers.utils.defaultAbiCoder.encode(
-        ["address", "address", "address"],
-        [deploymentsJsonFile.sindleton, deploymentsJsonFile.accountAbstractionModule, address]
-      );
-      const safeProxy4337CreationCreationCode = ethers.utils.solidityPack(
-        ["bytes", "bytes"],
-        [SafeProxy4337__factory.bytecode, safeProxy4337CreationArgument]
-      );
-      const safe = await DeterministicDeployer.deploy(safeProxy4337CreationCreationCode);
-
-      // const ethAdapter = new EthersAdapter({
-      //   ethers,
-      //   signerOrProvider: signer,
-      // });
-      // const safeFactory = await SafeFactory.create({ ethAdapter });
-      // const safeAccountConfig = {
-      //   owners: [address],
-      //   threshold: 1,
-      // };
-      // const safeDeploymentConfig = {
-      //   saltNonce: "0",
-      // };
-      // const predictedDeployAddress = await safeFactory.predictSafeAddress({
-      //   safeAccountConfig,
-      //   safeDeploymentConfig,
-      // });
-      // console.log("predictedDeployAddress", predictedDeployAddress);
-      // const code = await signer.provider.getCode(predictedDeployAddress);
-      // let safe: Safe;
-      // if (code === "0x") {
-      //   console.log("Safe is not deployed");
-      //   safe = await safeFactory.deploySafe({
-      //     safeAccountConfig,
-      //     safeDeploymentConfig,
-      //   });
-      // } else {
-      //   console.log("Safe is already deployed");
-      //   safe = await Safe.create({
-      //     ethAdapter,
-      //     safeAddress: predictedDeployAddress,
-      //   });
-      // }
-
-      // const accountAbstractionModule = EIP4337Manager__factory.connect(
-      //   deploymentsJsonFile.accountAbstractionModule,
-      //   signer
-      // );
-
-      // accountAbstractionModule
-      // accountAbstractionModule.setupEIP4337();
-
-      // safe.executeTransaction();
-      // safe.isModuleEnabled();
+      console.log(digiGoWallet);
     } catch (e) {
       handle(e);
     } finally {
@@ -104,7 +65,11 @@ const AccountAbstractionPage: NextPage = () => {
             </Text>
           )}
           {address && (
-            <Button onClick={deploySafe} isLoading={isLoading}>
+            <Button
+              onClick={deploySafe}
+              isLoading={isLoading}
+              isDisabled={!address || !signer || !signer.provider || !digiGoWallet}
+            >
               Test
             </Button>
           )}
