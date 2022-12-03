@@ -1,3 +1,11 @@
-# DigiGo - Polygon ID
+# DigiGo - One Reward to Rule them All
 
-Here is for Polygon ID implementation
+Tech: Polygon ID
+
+Bounty Track:
+
+Implementation:
+
+Challenges:
+
+Future Plan:

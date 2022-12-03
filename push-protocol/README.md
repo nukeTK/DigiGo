@@ -1,3 +1,11 @@
-# DigiGo - Push Protocol
+# DigiGo - One Reward to Rule them All
 
-Here is for Push Protocol implementation
+Tech: Push Protocol
+
+Bounty Track:
+
+Implementation:
+
+Challenges:
+
+Future Plan:
