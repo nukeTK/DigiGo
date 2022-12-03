@@ -12,40 +12,18 @@ import { ChainId } from "./types/network";
 dotenv.config();
 
 const mnemonic = getMnemonic("../../mnemonic.txt");
+
 const networksUserConfigs = getNetworksUserConfigs(mnemonic);
 
 const config: HardhatUserConfig = {
   solidity: {
-    compilers: [
-      {
-        version: "0.8.15",
-      },
-    ],
+    version: "0.8.15",
     settings: {
-      optimizer: {
-        enabled: true,
-        runs: 200,
-      },
+      optimizer: { enabled: true, runs: 1000000 },
+      viaIR: true,
     },
   },
   networks: {
-    hardhat:
-      process.env.IS_INTEGRATION_TEST === "true"
-        ? {
-            chainId: Number(process.env.FORK_CHAIN_ID),
-            accounts: {
-              mnemonic,
-            },
-            forking: {
-              url: networkJsonFile[process.env.FORK_CHAIN_ID as ChainId].rpc,
-            },
-          }
-        : {
-            chainId: HARDHAT_CHAINID,
-            accounts: {
-              mnemonic,
-            },
-          },
     ...networksUserConfigs,
   },
   etherscan: {
