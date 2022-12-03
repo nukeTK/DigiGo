@@ -142,7 +142,9 @@ export class DigiGoWalletUserOpHandler {
 
   async createUnsignedUserOp(info: TransactionDetailsForUserOpWithPaymasterAndData): Promise<UserOperationStruct> {
     const { DigiGoWallet, isDeployed } = await this._getDigiGoWallet();
-    const nonce = 0;
+    const nonce = await GnosisSafe__factory.connect(DigiGoWallet.address, this.provider).nonce();
+    // const nonce = 1
+    // console.log("nonce", nonce)
     const initCode = info.passInitCode ? "0x" : await this._getInitCode();
     const value = ethers.BigNumber.from(info.value || 0);
     const callData = await this._encodeExecute(info.target, value, info.data);
@@ -159,6 +161,8 @@ export class DigiGoWalletUserOpHandler {
       verificationGasLimit = verificationGasLimit.add(GAS_AMOUNT_FOR_DEPLOY);
     }
     let { maxFeePerGas, maxPriorityFeePerGas } = info;
+    console.log("input gas", maxFeePerGas, maxPriorityFeePerGas)
+
     if (!maxFeePerGas || !maxPriorityFeePerGas) {
       const feeData = await this.provider.getFeeData();
       if (maxFeePerGas == null) {

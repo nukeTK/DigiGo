@@ -1,8 +1,5 @@
 /* eslint-disable camelcase */
 import { Button, Stack, Text } from "@chakra-ui/react";
-import Safe, { SafeFactory } from "@safe-global/safe-core-sdk";
-import EthersAdapter from "@safe-global/safe-ethers-lib";
-import { ethers } from "ethers";
 import { NextPage } from "next";
 import { useState } from "react";
 import { useAccount, useSigner } from "wagmi";

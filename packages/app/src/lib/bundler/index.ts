@@ -35,9 +35,11 @@ export class Bundler {
         const entryPoint = EntryPoint__factory.connect(entryPointAddress, this.signer);
         const requestId = await entryPoint.getRequestId(userOp);
         const expectedPreVerificationGas = calcPreVerificationGas(userOp);
+        console.log("expectedPreVerificationGas", expectedPreVerificationGas)
 
         const preVerificationGas = ethers.BigNumber.from(userOp.preVerificationGas).toNumber();
         if (expectedPreVerificationGas > preVerificationGas) {
+          console.log("error")
           throw new Error(
             `userOp.preVerificationGas too low: expected ${expectedPreVerificationGas} but got ${preVerificationGas}`
           );

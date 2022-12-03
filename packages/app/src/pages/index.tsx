@@ -14,10 +14,18 @@ import {
   createClient,
   defaultChains,
   configureChains,
-  useAccount, useConnect
+  useAccount, useConnect, useSigner
 } from 'wagmi'
+import { useDigiGoWallet } from "@/hooks/useDigiGoWallet";
+import { MockPayment__factory } from "../../../../account-abstraction/packages/contracts/typechain-types/factories/contracts/MockPayment__factory";
+
+import deploymentsJsonFile from "../../../../account-abstraction/packages/contracts/deployments.json";
+import { useErrorToast } from "@/hooks/useErrorToast";
+
 const HomePage: NextPage = () => {
-  const { connector: activeConnector, isConnected } = useAccount()
+  const { connector: activeConnector, isConnected, address } = useAccount()
+  const { data: signer} = useSigner()
+  const { digiGoWallet } = useDigiGoWallet()
   const { connect, connectors, error, isLoading, pendingConnector } =
     useConnect()
   const [mode, setMode] = useState<PaymentPageMode>("scan");
@@ -28,7 +36,45 @@ const HomePage: NextPage = () => {
     const openScanModal = () => {
       scanModalDisclosure.onOpen();
     };
-    const confirmPay = () => {
+
+    const [isPaymentLoading, setIsPaymentLoading] = useState(false)
+    const { handle } = useErrorToast()
+    const confirmPay = async () => {
+      console.log("start payment")
+      if (!address || !signer || !signer.provider || !digiGoWallet) {
+        console.log("address", address)
+        console.log("signer", signer)
+        console.log("digiGoWallet", digiGoWallet)
+        console.log("not defined")
+        return;
+      }
+      try {
+        // eslint-disable-next-line camelcase
+        const mockPayment = MockPayment__factory.connect(deploymentsJsonFile.mockPayment, signer);
+        console.log(digiGoWallet.address);
+  
+        // await signer.sendTransaction({ to: digiGoWallet.address, value: ethers.utils.parseEther("0.5") });
+        const data = mockPayment.interface.encodeFunctionData("pay");
+        const op = await digiGoWallet.userOpHandler.createSignedUserOp({
+          target: mockPayment.address,
+          data,
+          value: 100,
+          gasLimit: 6100000,
+          maxFeePerGas: 50000000000,
+          maxPriorityFeePerGas: 55000000000
+        });
+        console.log("user op", op)
+        digiGoWallet.bundlerClient.sendUserOpToBundler(op).then((tx) => {
+          console.log(tx);
+        });
+        setIsPaymentLoading(true);
+        console.log(digiGoWallet);
+      } catch (e) {
+        handle(e);
+      } finally {
+        setIsPaymentLoading(false);
+      }
+  
       setMode("confirm")
     }
 
