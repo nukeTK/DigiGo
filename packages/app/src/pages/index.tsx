@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { Text } from "@chakra-ui/react";
+import { Text, Stack } from "@chakra-ui/react";
 
 import { Layout } from "@/components/Layout";
 import { Unit } from "@/components/Unit";
@@ -10,9 +10,11 @@ const HomePage: NextPage = () => {
   return (
     <Layout>
       <Unit header="Home">
-        <Text fontSize="sm" color={configJsonFile.style.color.black.text.secondary}>
-          This page is for home. Cool things go here.
-        </Text>
+        <Stack>
+          <Text fontSize="sm" color={configJsonFile.style.color.black.text.secondary}>
+            This page is for home. Cool things go here.
+          </Text>
+        </Stack>
       </Unit>
     </Layout>
   );

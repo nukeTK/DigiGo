@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { Text } from "@chakra-ui/react";
+import { Text, Image, Stack } from "@chakra-ui/react";
 
 import { Layout } from "@/components/Layout";
 import { Unit } from "@/components/Unit";
@@ -10,9 +10,13 @@ const RestaurantPage: NextPage = () => {
   return (
     <Layout>
       <Unit header="Restaurant">
-        <Text fontSize="sm" color={configJsonFile.style.color.black.text.secondary}>
-          This page is for restaurant. Static payment QR Code goes here.
-        </Text>
+        <Stack>
+          <Text fontSize="sm" fontWeight="bold" color={configJsonFile.style.color.black.text.secondary}>
+            This page is for restaurant. This should be on separated app in prod, we put together for simple demo
+            purpose only.
+          </Text>
+          <Image src={"/assets/utils/sample-qr-code.png"} alt="qr" />
+        </Stack>
       </Unit>
     </Layout>
   );

@@ -1,4 +1,4 @@
-import { Button, useDisclosure, Text } from "@chakra-ui/react";
+import { Button, useDisclosure, Text, Stack } from "@chakra-ui/react";
 import { NextPage } from "next";
 
 import { Layout } from "@/components/Layout";
@@ -31,15 +31,17 @@ const PaymentPage: NextPage = () => {
   return (
     <Layout>
       <Unit header="Scan Restaurant QR">
-        <Text fontSize="sm" color={configJsonFile.style.color.black.text.secondary}>
-          This page is for payment. Scan QR Code and review the payment, and confirmation.
-        </Text>
-        {mode === "scan" && <Button onClick={openScanModal}>Scan</Button>}
-        {mode === "review" && (
+        <Stack>
           <Text fontSize="sm" color={configJsonFile.style.color.black.text.secondary}>
-            Payment review goes here. And technical integration goes here too.
+            This page is for payment. Scan QR Code and review the payment, and confirmation.
           </Text>
-        )}
+          {mode === "scan" && <Button onClick={openScanModal}>Scan</Button>}
+          {mode === "review" && (
+            <Text fontSize="sm" color={configJsonFile.style.color.black.text.secondary}>
+              Payment review goes here. And technical integration goes here too.
+            </Text>
+          )}
+        </Stack>
       </Unit>
       <QRCodeScannerModal
         isOpen={scanModalDisclosure.isOpen}
