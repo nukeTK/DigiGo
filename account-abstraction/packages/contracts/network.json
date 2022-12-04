@@ -8,5 +8,15 @@
     "icon": "polygon.png",
     "rpc": "https://cosmological-wild-shadow.matic-testnet.discover.quiknode.pro/841ca310d3e929c353000fc44f52ddd23232ac62/",
     "explorer": { "name": "Polygonscan", "url": "https://mumbai.polygonscan.com" }
+  },
+  "5": {
+    "index": 1,
+    "key": "ethereum-georli",
+    "env": "testnet",
+    "name": "Ethereum Georli",
+    "currency": "ETH",
+    "icon": "ethereum.png",
+    "rpc": "https://eth-goerli.g.alchemy.com/v2/vzXI1-6dtYrvErKC7Q_KeiFLodiTojGg",
+    "explorer": { "name": "Etherscan", "url": "https://goerli.etherscan.io" }
   }
 }

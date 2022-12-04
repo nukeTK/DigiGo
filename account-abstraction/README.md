@@ -23,26 +23,11 @@ https://github.com/eth-infinitism/account-abstraction/blob/develop/contracts/gno
 
 We added the plugins for meta transactions, paying the gas fee by payment token, and session key, in this hackathon. This allows a better user experience, and this can be configured according to the user's security requirements.
 
-And also we are integrating with Polygon ID to make Safe a credential-based identity wallet, and Push Chat to make Safe a chat-enabled wallet. We do this investigation in separate dir.
+And also we are integrating with Polygon ID to make Safe a credential-based identity wallet, and Push Chat to make Safe a chat-enabled wallet. 
 
-### Biconomy SDK
+### Polygon ID
+this is credential for hackers
+In our usecase, we can get more benefit by providing this kind of credential.
 
-We confirmed with the Biconomy dev team that the SDK is compatible with the ERC4337 implementation. Also, we were informed that Biconomy smart contract wallet implementation is an extended version of Safe.
+https://platform-test.polygonid.com/claim-link/ee34ac11-d884-4d0b-8163-07b088d5548f
 
-So we decided to use Biconomy SDK to improve development efficiency for our team.
-
-In this dir, we are trying to know how to use Biconocmy SDK with Account Abstraction on Safe.
-
-## Development Note
-
-### Safe
-
-TBD
-
-### Biconomy SDK
-
-https://biconomy.gitbook.io/sdk/guides/user-onboarding-and-smart-account-deployments
-
-### Integration
-
-TBD
