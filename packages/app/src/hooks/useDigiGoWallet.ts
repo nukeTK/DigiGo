@@ -9,6 +9,8 @@ import { DigiGoWalletUserOpHandler } from "../../../../account-abstraction/packa
 import {
   DigiGoWallet,
   DigiGoWallet__factory,
+  IEntryPoint,
+  IEntryPoint__factory
 } from "../../../../account-abstraction/packages/contracts/typechain-types";
 
 export interface DigiGoWalletContextValue {
@@ -20,6 +22,7 @@ export interface DigiGoWalletContextValue {
   signerAddress: string;
   ethBalanceBigNumber: ethers.BigNumber;
   ethFormatedBalance: string;
+  entryPoint: IEntryPoint
 }
 
 export interface DigiGoWalletContextParams {
@@ -66,6 +69,8 @@ export const useDigiGoWallet = () => {
           signer,
           factoryAddress: deploymentsConfigFile.factory,
         });
+        const entryPoint = IEntryPoint__factory.connect(deploymentsConfigFile.entryPoint, signer)
+
         const address = await userOpHandler.getWalletAddress();
         const contract = DigiGoWallet__factory.connect(address, signer);
         const isDeployed = await provider
@@ -83,6 +88,7 @@ export const useDigiGoWallet = () => {
           isDeployed,
           signerAddress,
           ethBalanceBigNumber,
+          entryPoint,
           ethFormatedBalance,
         });
         console.log('set')

@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { Stack, Text } from "@chakra-ui/react";
+import { Stack, Text, Button } from "@chakra-ui/react";
 import { NextPage } from "next";
 
 import { Layout } from "@/components/Layout";
@@ -9,9 +9,10 @@ import configJsonFile from "../../../config.json";
 import { useMemo } from "react";
 import { QRCode } from "react-qr-svg";
 import { proofRequest } from "../../lib/polygonId";
+import { useDigiGoWallet } from "@/hooks/useDigiGoWallet";
 
 const PolygonIdPage: NextPage = () => {
-
+  const { digiGoWallet } = useDigiGoWallet();
   return (
     <Layout>
       <Unit header="Account Abstraction Portal">

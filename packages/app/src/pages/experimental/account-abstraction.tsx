@@ -13,6 +13,8 @@ import deploymentsJsonFile from "../../../../../account-abstraction/packages/con
 import { MockPayment__factory } from "../../../../../account-abstraction/packages/contracts/typechain-types";
 import configJsonFile from "../../../config.json";
 
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+
 const AccountAbstractionPage: NextPage = () => {
   const { address } = useAccount();
   const { data: signer } = useSigner();
@@ -51,25 +53,12 @@ const AccountAbstractionPage: NextPage = () => {
 
   return (
     <Layout>
-      <Unit header="Account Abstraction Portal">
+      <Unit header="Account Abstraction Identity Portal">
         <Stack>
           <Text fontSize="sm" color={configJsonFile.style.color.black.text.secondary}>
             Here you can enable Account Abstraction with Safe
           </Text>
-          {!address && (
-            <Text fontSize="sm" color={configJsonFile.style.color.black.text.secondary}>
-              Please connect wallet
-            </Text>
-          )}
-          {address && (
-            <Button
-              onClick={deploySafe}
-              isLoading={isLoading}
-              isDisabled={!address || !signer || !signer.provider || !digiGoWallet}
-            >
-              Test
-            </Button>
-          )}
+          <ConnectButton />
         </Stack>
       </Unit>
     </Layout>

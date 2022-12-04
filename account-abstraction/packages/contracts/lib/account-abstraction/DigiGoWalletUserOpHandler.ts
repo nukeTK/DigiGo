@@ -142,7 +142,7 @@ export class DigiGoWalletUserOpHandler {
 
   async createUnsignedUserOp(info: TransactionDetailsForUserOpWithPaymasterAndData): Promise<UserOperationStruct> {
     const { DigiGoWallet, isDeployed } = await this._getDigiGoWallet();
-    const nonce = await GnosisSafe__factory.connect(DigiGoWallet.address, this.provider).nonce();
+    const nonce = !isDeployed ? 0 : await GnosisSafe__factory.connect(DigiGoWallet.address, this.provider).nonce();
     // const nonce = 1
     // console.log("nonce", nonce)
     const initCode = info.passInitCode ? "0x" : await this._getInitCode();
