@@ -1,35 +1,39 @@
-import { NextPage } from "next";
-import { Text ,Image,Box, Heading,Card, CardHeader, CardBody, CardFooter,useDisclosure, Stack,Flex, Button} from "@chakra-ui/react";
-import {
-  Stat,
-  StatLabel,
-  StatNumber,
-  StatHelpText,
+/* eslint-disable camelcase */
+import { Box, Button,Card, CardBody, CardFooter,CardHeader, Flex, Heading,Icon,Image,Stack,  Stat,
   StatArrow,
   StatGroup,
-} from '@chakra-ui/react'
-import { Icon } from '@chakra-ui/react'
-import { MdGroupWork } from 'react-icons/md'
-import { Layout } from "@/components/Layout";
-import { Unit } from "@/components/Unit";
-import Confetti from 'react-confetti'
-
-
+  StatHelpText,
+  StatLabel,
+  StatNumber, Text ,useDisclosure } from "@chakra-ui/react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { QRCodeScannerModal } from "@/components/QRCodeScannerModal";
-import configJsonFile from "../../config.json";
+import { NextPage } from "next";
 import { useEffect, useState } from "react";
-type PaymentPageMode = "scan" | "review" | "confirm" | "walletConnected" ;
-
+import Confetti from 'react-confetti'
+import { MdGroupWork } from 'react-icons/md'
 import {
-  WagmiConfig,
+  configureChains,
   createClient,
   defaultChains,
-  configureChains,
-  useAccount, useConnect
-} from 'wagmi'
+  useAccount, useConnect, useSigner,
+  WagmiConfig} from 'wagmi'
+
+import { Layout } from "@/components/Layout";
+import { QRCodeScannerModal } from "@/components/QRCodeScannerModal";
+import { Unit } from "@/components/Unit";
+import { useDigiGoWallet } from "@/hooks/useDigiGoWallet";
+import { useErrorToast } from "@/hooks/useErrorToast";
+import { sleep} from  "@/lib/utils"
+
+import deploymentsJsonFile from "../../../../account-abstraction/packages/contracts/deployments.json";
+import { MockPayment__factory } from "../../../../account-abstraction/packages/contracts/typechain-types/factories/contracts/MockPayment__factory";
+import configJsonFile from "../../config.json";
+
+type PaymentPageMode = "scan" | "review" | "confirm" | "walletConnected" ;
+
 const HomePage: NextPage = () => {
-  const { connector: activeConnector, isConnected } = useAccount()
+  const { connector: activeConnector, isConnected, address } = useAccount()
+  const { data: signer} = useSigner()
+  const { digiGoWallet } = useDigiGoWallet()
   const { connect, connectors, error, isLoading, pendingConnector } =
     useConnect()
   const [mode, setMode] = useState<PaymentPageMode>("scan");
@@ -41,10 +45,51 @@ const HomePage: NextPage = () => {
     const openScanModal = () => {
       scanModalDisclosure.onOpen();
     };
-    const confirmPay = () => {
-      setLoyalty(2)
-      setMode("confirm")
 
+
+    const [isPaymentLoading, setIsPaymentLoading] = useState(false)
+    const { handle } = useErrorToast()
+    const confirmPay = async () => {
+      console.log("start payment")
+      if (!address || !signer || !signer.provider || !digiGoWallet) {
+        console.log("address", address)
+        console.log("signer", signer)
+        console.log("digiGoWallet", digiGoWallet)
+        console.log("not defined")
+        return;
+      }
+      try {
+        setLoyalty(2)
+        // eslint-disable-next-line camelcase
+        const mockPayment = MockPayment__factory.connect(deploymentsJsonFile.mockPayment, signer);
+        console.log(digiGoWallet.address);
+  
+        // await signer.sendTransaction({ to: digiGoWallet.address, value: ethers.utils.parseEther("0.5") });
+        const data = mockPayment.interface.encodeFunctionData("pay");
+        const op = await digiGoWallet.userOpHandler.createSignedUserOp({
+          target: mockPayment.address,
+          data,
+          value: 10000,
+          gasLimit: 6100000,
+          // maxFeePerGas: 50000000000,
+          // maxPriorityFeePerGas: 55000000000
+        });
+        console.log("user op", op)
+        // const tx = digiGoWallet.entryPoint.handleOps([op], "0x29893eEFF38C5D5A1B2F693e2d918e618CCFfdD8");
+
+        // now the tx works, but some times get stack so skip wating
+        digiGoWallet.bundlerClient.sendUserOpToBundler(op).then((tx) => {
+          console.log("tx", tx);
+        });
+        // this is for demo
+        await sleep(2000)
+        console.log("tx needs to wait some time, so no waiting for demo")
+        setMode("confirm");
+      } catch (e) {
+        handle(e);
+      } finally {
+        setIsPaymentLoading(false);
+      }
     }
 
     useEffect(() => {

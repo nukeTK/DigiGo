@@ -13,15 +13,17 @@ import {
   MenuList,
   Text,
 } from "@chakra-ui/react";
-
+import * as PushAPI from "@pushprotocol/restapi";
+import { chainNameType, NotificationItem, SubscribedModal } from '@pushprotocol/uiweb'
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react"
+import { AiOutlineMenu } from "react-icons/ai";
 import { FaGithub } from "react-icons/fa";
 import { MdArticle } from "react-icons/md";
-import { AiOutlineMenu } from "react-icons/ai";
 
 import { Head } from "@/components/Head";
 
 import configJsonFile from "../../../config.json";
-import { useRouter } from "next/router";
 
 export interface LayoutProps {
   children: React.ReactNode;
@@ -30,11 +32,20 @@ export interface LayoutProps {
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const router = useRouter();
 
+  // const [notifications, setNotifications] = useState<typeof NotificationItem[]>();
+
   const routes = [
     { path: "/", name: "Home" },
     { path: "/payment", name: "Payment" },
     { path: "/restaurant", name: "Restaurant" },
   ];
+
+  useEffect(()=> {
+    PushAPI.user.getFeeds({
+      user: 'eip155:5:0xebcC0f9d90CF51b87D7233313cf059cFb96AA973', // user address in CAIP
+      env: 'staging'
+    }).then(notifications => console.log(notifications))
+  }, [])
 
   return (
     <Flex minHeight={"100vh"} direction={"column"} bg={configJsonFile.style.color.black.bg}>
@@ -115,3 +126,4 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     </Flex>
   );
 };
+

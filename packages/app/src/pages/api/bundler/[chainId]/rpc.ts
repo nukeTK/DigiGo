@@ -6,6 +6,7 @@ import networkConfigJson from "../../../../../../../account-abstraction/packages
 import { isChainId } from "../../../../../../../account-abstraction/packages/contracts/types/network";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  res.setHeader('Cache-Control', 'no-store')
   const { chainId } = req.query;
   if (typeof chainId !== "string" || !isChainId(chainId)) {
     throw new Error("chain id is invalid");

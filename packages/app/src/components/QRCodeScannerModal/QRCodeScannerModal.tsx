@@ -30,7 +30,7 @@ export const QRCodeScannerModal: React.FC<QRCodeScannerModalProps> = ({ isOpen, 
           onClose();
         }}
         onError={(err: unknown) => {
-          errorToast.open(err);
+          errorToast.handle(err);
         }}
       />
     </Modal>

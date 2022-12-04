@@ -1,11 +1,12 @@
-import { Button, useDisclosure, Text, Stack } from "@chakra-ui/react";
+import { Button, Stack,Text, useDisclosure } from "@chakra-ui/react";
 import { NextPage } from "next";
+import { useEffect, useState } from "react";
 
 import { Layout } from "@/components/Layout";
 import { QRCodeScannerModal } from "@/components/QRCodeScannerModal";
 import { Unit } from "@/components/Unit";
+
 import configJsonFile from "../../config.json";
-import { useEffect, useState } from "react";
 
 type PaymentPageMode = "scan" | "review" | "confirm";
 
