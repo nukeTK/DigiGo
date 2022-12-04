@@ -18,3 +18,5 @@ Run this at the project root.
 yarn
 yarn dev
 ```
+
+done
