@@ -1,39 +1,34 @@
-import { NextPage } from "next";
-import { Text ,Image,Box, Heading,Card, CardHeader, CardBody, CardFooter,useDisclosure, Stack,Flex, Button} from "@chakra-ui/react";
-import {
-  Stat,
-  StatLabel,
-  StatNumber,
-  StatHelpText,
+/* eslint-disable camelcase */
+import { Box, Button,Card, CardBody, CardFooter,CardHeader, Flex, Heading,Icon,Image,Stack,  Stat,
   StatArrow,
   StatGroup,
-} from '@chakra-ui/react'
-import { Icon } from '@chakra-ui/react'
-import { MdGroupWork } from 'react-icons/md'
-import { Layout } from "@/components/Layout";
-import { Unit } from "@/components/Unit";
-import Confetti from 'react-confetti'
-import { sleep} from  "@/lib/utils"
-
-
+  StatHelpText,
+  StatLabel,
+  StatNumber, Text ,useDisclosure } from "@chakra-ui/react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { QRCodeScannerModal } from "@/components/QRCodeScannerModal";
-import configJsonFile from "../../config.json";
+import { NextPage } from "next";
 import { useEffect, useState } from "react";
-type PaymentPageMode = "scan" | "review" | "confirm" | "walletConnected" ;
-
+import Confetti from 'react-confetti'
+import { MdGroupWork } from 'react-icons/md'
 import {
-  WagmiConfig,
+  configureChains,
   createClient,
   defaultChains,
-  configureChains,
-  useAccount, useConnect, useSigner
-} from 'wagmi'
+  useAccount, useConnect, useSigner,
+  WagmiConfig} from 'wagmi'
+
+import { Layout } from "@/components/Layout";
+import { QRCodeScannerModal } from "@/components/QRCodeScannerModal";
+import { Unit } from "@/components/Unit";
 import { useDigiGoWallet } from "@/hooks/useDigiGoWallet";
-import { MockPayment__factory } from "../../../../account-abstraction/packages/contracts/typechain-types/factories/contracts/MockPayment__factory";
+import { useErrorToast } from "@/hooks/useErrorToast";
+import { sleep} from  "@/lib/utils"
 
 import deploymentsJsonFile from "../../../../account-abstraction/packages/contracts/deployments.json";
-import { useErrorToast } from "@/hooks/useErrorToast";
+import { MockPayment__factory } from "../../../../account-abstraction/packages/contracts/typechain-types/factories/contracts/MockPayment__factory";
+import configJsonFile from "../../config.json";
+
+type PaymentPageMode = "scan" | "review" | "confirm" | "walletConnected" ;
 
 const HomePage: NextPage = () => {
   const { connector: activeConnector, isConnected, address } = useAccount()

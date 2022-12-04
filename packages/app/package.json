@@ -22,6 +22,8 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@fontsource/inter": "^4.5.14",
+    "@pushprotocol/restapi": "^0.2.2",
+    "@pushprotocol/uiweb": "^0.2.3",
     "@rainbow-me/rainbowkit": "^0.7.4",
     "@rainbow-me/rainbowkit-siwe-next-auth": "^0.1.5",
     "@safe-global/safe-core-sdk": "^3.2.0",
@@ -44,6 +46,7 @@
     "react-rewards": "^1.1.2",
     "siwe": "^2.0.5",
     "stripe": "^11.1.0",
+    "styled-components": "^5.3.6",
     "wagmi": "^0.7.9"
   },
   "devDependencies": {

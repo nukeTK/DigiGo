@@ -1,15 +1,15 @@
 /* eslint-disable camelcase */
-import { Stack, Text, Button } from "@chakra-ui/react";
+import { Button,Stack, Text } from "@chakra-ui/react";
 import { NextPage } from "next";
+import { useMemo } from "react";
+import { QRCode } from "react-qr-svg";
 
 import { Layout } from "@/components/Layout";
 import { Unit } from "@/components/Unit";
+import { useDigiGoWallet } from "@/hooks/useDigiGoWallet";
 
 import configJsonFile from "../../../config.json";
-import { useMemo } from "react";
-import { QRCode } from "react-qr-svg";
 import { proofRequest } from "../../lib/polygonId";
-import { useDigiGoWallet } from "@/hooks/useDigiGoWallet";
 
 const PolygonIdPage: NextPage = () => {
   const { digiGoWallet } = useDigiGoWallet();

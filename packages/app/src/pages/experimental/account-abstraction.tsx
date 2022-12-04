@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import { Button, Stack, Text } from "@chakra-ui/react";
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { NextPage } from "next";
 import { useState } from "react";
 import { useAccount, useSigner } from "wagmi";
@@ -12,8 +13,6 @@ import { useErrorToast } from "@/hooks/useErrorToast";
 import deploymentsJsonFile from "../../../../../account-abstraction/packages/contracts/deployments.json";
 import { MockPayment__factory } from "../../../../../account-abstraction/packages/contracts/typechain-types";
 import configJsonFile from "../../../config.json";
-
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 const AccountAbstractionPage: NextPage = () => {
   const { address } = useAccount();
