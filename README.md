@@ -1,4 +1,4 @@
-# DigiGo One Reward to Rule them ALL
+# DigiGo - One Reward to Rule them All
 
 DigiGo Loyalty Protocol Eats the World of Rewards Programs
 
