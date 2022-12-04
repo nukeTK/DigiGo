@@ -31,6 +31,8 @@
     "@safe-global/safe-ethers-lib": "^1.7.0",
     "@safe-global/safe-service-client": "^1.4.0",
     "@stripe/stripe-js": "^1.44.1",
+    "@walletconnect/client": "^1.8.0",
+    "@walletconnect/utils": "^2.1.4",
     "ethers": "^5.7.2",
     "framer-motion": "^7.6.18",
     "micro": "^9.4.1",
