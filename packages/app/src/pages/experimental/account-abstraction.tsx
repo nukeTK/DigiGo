@@ -2,7 +2,7 @@
 import { Button, Input, Stack, Text } from "@chakra-ui/react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import WalletConnect from "@walletconnect/client";
-import { convertHexToUtf8 } from "@walletconnect/utils";
+// import { convertHexToUtf8 } from "@walletconnect/utils";
 import { NextPage } from "next";
 import { useState } from "react";
 import { useAccount, useSigner } from "wagmi";
@@ -81,14 +81,14 @@ const AccountAbstractionPage: NextPage = () => {
         }
         if (payload.method === "personal_sign") {
           console.log("personal_sign");
-          const message = convertHexToUtf8(payload.params[0]);
-          console.log("signing message");
-          const signature = await signer.signMessage(message);
-          console.log("signature", signature);
-          walletConnectConnector.approveRequest({
-            id: payload.id,
-            result: signature,
-          });
+          // const message = convertHexToUtf8(payload.params[0]);
+          // console.log("signing message");
+          // const signature = await signer.signMessage(message);
+          // console.log("signature", signature);
+          // walletConnectConnector.approveRequest({
+          //   id: payload.id,
+          //   result: signature,
+          // });
         }
         if (payload.method === "eth_signTypedData") {
           console.log("eth_signTypedData");
