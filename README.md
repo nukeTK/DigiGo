@@ -23,8 +23,8 @@ https://digi-go.vercel.com
 ## Development Note
 
 - [Account Abstraction](./account-abstraction/README.md)
+- [Polygon ID and Connext](./account-abstraction/Crosschain-Onchain-Verification.md)
 - [Push Protocol](./push-protocol/README.md)
-- [Polygon ID](./polygon-id/README.md)
 
 ## Development
 
