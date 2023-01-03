@@ -6,7 +6,7 @@ This implementation may get complicated, so I set up a different dev environment
 
 ## How it works
 
-![how-it-works](../docs/account-abstraction-contracts.png)
+![how-it-works](../docs/account-abstraction.png)
 
 ## Motivation
 
@@ -25,13 +25,12 @@ We added the plugins for meta transactions, paying the gas fee by payment token,
 
 And also we are integrating with Polygon ID to make Safe a credential-based identity wallet, and Push Chat to make Safe a chat-enabled wallet.
 
-### Polygon ID
+## Implementation
 
-this is credential for hackers
-In our usecase, we can get more benefit by providing this kind of credential.
+- Wallet
+  https://github.com/captainahab0x/DigiGo/blob/main/account-abstraction/packages/contracts/contracts/DigiGoWallet.sol
 
-https://platform-test.polygonid.com/claim-link/ee34ac11-d884-4d0b-8163-07b088d5548f
+- Bundler
+  https://github.com/captainahab0x/DigiGo/blob/main/packages/app/src/pages/api/bundler/%5BchainId%5D/rpc.ts
 
-### Biconomy
-
-We decided to use own Bundler, Paymater, Contract Wallet for the simplicity
+- SDK

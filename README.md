@@ -12,11 +12,19 @@ https://www.youtube.com/watch?v=2ft4NCB1Gj0
 
 https://digi-go.vercel.com
 
+## Architecture
+
+[architecture](./docs/architecture.png)
+
+- Activate Account Abstraction module for Safe, and build bundler, SDK, then used in real payment usecase.
+- To make Account Abstraction as and Identity wallet, combined polygon ID to utilize credential data, this is used to get more benefits, and this on-chain credential data can be synced by Connext cross-chain bridge
+- The wallet can be used to send notification and send message using Push Protocol, so that we can offer better service
+
 ## Development Note
 
 - [Account Abstraction](./account-abstraction/README.md)
+- [Polygon ID and Connext](./account-abstraction/Crosschain-Onchain-Verification.md)
 - [Push Protocol](./push-protocol/README.md)
-- [Polygon ID](./polygon-id/README.md)
 
 ## Development
 
@@ -26,5 +34,3 @@ Run this at the project root.
 yarn
 yarn dev
 ```
-
-done
